@@ -71,16 +71,31 @@ The frontend should now be running on `http://localhost:3000`.
 
 ## Deployment
 
-### Frontend (Vercel)
-The frontend Next.js application is configured to be seamlessly deployed on Vercel. 
-1. Push the repository to GitHub.
-2. Import the `frontend` folder into a new Vercel project.
-3. Configure the `NEXT_PUBLIC_API_URL` environment variable if your backend is hosted externally.
+This application is ready for production deployment!
 
-### Backend (Render)
-The FastAPI backend can be deployed on Render using a Web Service.
-1. Create a new Web Service on Render linked to this repository.
-2. Set the Root Directory to `backend`.
-3. Set the Start Command to: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-4. Add the `HF_TOKEN` environment variable.
-5. In your frontend configuration, ensure it points to the deployed Render URL as the API endpoint.
+### Quick Deploy
+
+1. **Backend**: Deploy to Render, Railway, or Fly.io
+   - Set environment variables: `HF_TOKEN`, `ALLOWED_ORIGINS`
+   - Ensure `faiss_index.bin` and `metadata.json` are committed
+
+2. **Frontend**: Deploy to Vercel
+   - Set environment variable: `NEXT_PUBLIC_API_URL` (your backend URL)
+   - Vercel will auto-detect Next.js configuration
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### Environment Variables
+
+**Backend** (`backend/.env`):
+```bash
+HF_TOKEN=your_hugging_face_token
+ALLOWED_ORIGINS=https://your-frontend.vercel.app,http://localhost:3000
+```
+
+**Frontend** (`frontend/.env.local`):
+```bash
+NEXT_PUBLIC_API_URL=https://your-backend.onrender.com
+```
+
+See `.env.example` files for templates.
