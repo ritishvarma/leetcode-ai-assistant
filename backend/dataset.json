@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Two Sum",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
+    "pattern": "Hash Map",
+    "approach": "Use a hash map to store the elements and their indices as we iterate through the array. For each element, check if target - element exists in the hash map. If it does, we found our pair.",
+    "time_complexity": "O(n)",
+    "example_code": "def twoSum(nums, target):\n    numMap = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in numMap:\n            return [numMap[complement], i]\n        numMap[num] = i\n    return []"
+  },
+  {
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Given a string s, find the length of the longest substring without repeating characters.",
+    "pattern": "Sliding Window",
+    "approach": "Use a sliding window with two pointers (left and right) and a hash set or dictionary to keep track of characters in the current window. Expand the right pointer, and if a duplicate is found, shrink the window from the left until the duplicate is removed.",
+    "time_complexity": "O(n)",
+    "example_code": "def lengthOfLongestSubstring(s):\n    char_set = set()\n    left = 0\n    max_len = 0\n    for right in range(len(s)):\n        while s[right] in char_set:\n            char_set.remove(s[left])\n            left += 1\n        char_set.add(s[right])\n        max_len = max(max_len, right - left + 1)\n    return max_len"
+  },
+  {
+    "title": "Valid Anagram",
+    "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.",
+    "pattern": "Frequency Counting / Hash Map",
+    "approach": "Count the frequency of each character in both strings using a hash map or array. If the lengths of the strings are different, return false. Compare the frequency counts; if they match, it's an anagram.",
+    "time_complexity": "O(n)",
+    "example_code": "def isAnagram(s, t):\n    if len(s) != len(t): return False\n    count = {}\n    for char in s:\n        count[char] = count.get(char, 0) + 1\n    for char in t:\n        if char not in count or count[char] == 0:\n            return False\n        count[char] -= 1\n    return True"
+  },
+  {
+    "title": "Best Time to Buy and Sell Stock",
+    "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
+    "pattern": "Two Pointers / Sliding Window",
+    "approach": "Initialize a variable to keep track of the minimum price seen so far and another for the maximum profit. Iterate through the prices, updating the minimum price if a lower price is found, and updating the maximum profit if the current price minus the minimum price is greater than the current maximum profit.",
+    "time_complexity": "O(n)",
+    "example_code": "def maxProfit(prices):\n    min_price = float('inf')\n    max_profit = 0\n    for price in prices:\n        if price < min_price:\n            min_price = price\n        elif price - min_price > max_profit:\n            max_profit = price - min_price\n    return max_profit"
+  },
+  {
+    "title": "Merge Intervals",
+    "description": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+    "pattern": "Sorting",
+    "approach": "First, sort the intervals based on their start times. Then, iterate through the sorted intervals. If the current interval overlaps with the last interval in the merged list, merge them by updating the end time of the last interval. Otherwise, add the current interval to the merged list.",
+    "time_complexity": "O(n log n)",
+    "example_code": "def merge(intervals):\n    intervals.sort(key=lambda x: x[0])\n    merged = []\n    for interval in intervals:\n        if not merged or merged[-1][1] < interval[0]:\n            merged.append(interval)\n        else:\n            merged[-1][1] = max(merged[-1][1], interval[1])\n    return merged"
+  }
+]
