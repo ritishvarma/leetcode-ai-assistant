@@ -192,11 +192,11 @@ export default function Home() {
                     <div className="prose prose-invert prose-blue max-w-none prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800 prose-p:leading-relaxed">
                       <ReactMarkdown
                         components={{
-                          code({ inline, className, children, ...props }) {
+                          code({ className, children, ...props }: any) {
                             const match = /language-(\w+)/.exec(className || "");
-                            const isBlock = !inline && match;
+                            const isInline = !match;
                             
-                            if (isBlock) {
+                            if (!isInline && match) {
                               return <CodeBlock language={match[1]} value={String(children).replace(/\n$/, "")} />;
                             }
                             return (
